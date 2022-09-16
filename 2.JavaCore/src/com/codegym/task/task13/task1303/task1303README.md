@@ -17,4 +17,8 @@ Requirements:
 
 
 
-The task passed testing!  Your solution to the task was better than 7% other students. You solved it in 2 attempts. The average number of attempts for this task is 1.42. This task has been completed by 2307 students.
+The task passed testing!  
+Your solution to the task was better than 7% other students. 
+You solved it in 2 attempts. 
+The average number of attempts for this task is 1.42. 
+This task has been completed by 2307 students.
