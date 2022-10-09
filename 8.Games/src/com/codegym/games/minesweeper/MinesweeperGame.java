@@ -1,32 +1,61 @@
 package com.codegym.games.minesweeper;
 
-import com.codegym.engine.cell.*;
+import com.codegym.engine.cell.Color;
+import com.codegym.engine.cell.Game;
 
+import java.util.ArrayList;
+import java.util.List;
 
 public class MinesweeperGame extends Game {
-    private int countMinesOnField = 0;
     private static final int SIDE = 9;
-    private final GameObject[][] gameField = new GameObject[SIDE][SIDE];
+    private GameObject[][] gameField = new GameObject[SIDE][SIDE];
+    private int countMinesOnField;
 
+    public static void defult() {
+        MinesweeperGame.launch();
+    }
+
+    @Override
     public void initialize() {
         setScreenSize(SIDE, SIDE);
         createGame();
     }
 
     private void createGame() {
-        int countMine = 0;
-        for (int i = 0; i < SIDE; i++) {
-            for (int j = 0; j < SIDE; j++) {
-                int n = getRandomNumber(10);
-                boolean isMineMG = false;
-                if (n == 9) {
-                    isMineMG = true;
-                    countMine++;
+        for (int y = 0; y < SIDE; y++) {
+            for (int x = 0; x < SIDE; x++) {
+                boolean isMine = getRandomNumber(10) < 1;
+                if (isMine) {
+                    countMinesOnField++;
                 }
-                gameField[i][j] = new GameObject(j, i, isMineMG);
-                setCellColor(j, i, Color.ORANGE);
+                gameField[y][x] = new GameObject(x, y, isMine);
+                setCellColor(x, y, Color.ORANGE);
             }
         }
-        countMinesOnField = countMine;
+    }
+
+    private List<GameObject> getNeighbors(GameObject gameObject) {
+        List<GameObject> result = new ArrayList<>();
+        for (int y = gameObject.y - 1; y <= gameObject.y + 1; y++) {
+            for (int x = gameObject.x - 1; x <= gameObject.x + 1; x++) {
+                if (y < 0 || y >= SIDE) {
+                    continue;
+                }
+                if (x < 0 || x >= SIDE) {
+                    continue;
+                }
+                if (gameField[y][x] == gameObject) {
+                    continue;
+                }
+                result.add(gameField[y][x]);
+            }
+        }
+        return result;
+    }
+}
+
+class Default {
+    public static void main(String[] args) {
+        MinesweeperGame.defult();
     }
 }
