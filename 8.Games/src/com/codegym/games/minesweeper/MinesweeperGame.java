@@ -9,25 +9,8 @@ import java.util.List;
 public class MinesweeperGame extends Game {
     private static final int SIDE = 9;
     private final GameObject[][] gameField = new GameObject[SIDE][SIDE];
+
     private int countMinesOnField;
-
-    public static void defult() {
-        MinesweeperGame.launch();
-    }
-
-    private void countMineNeighbors() {
-        for (int y = 0; y < SIDE; y++) {
-            for (int x = 0; x < SIDE; x++) {
-                boolean isMine = getRandomNumber(10) < 1;
-                gameField[y][x] = new GameObject(x, y, isMine);
-                if (isMine) {
-                    // count neighbors
-                }
-            }
-        }
-        // getNeighbors(GameObject gameObject)
-    }
-
 
     @Override
     public void initialize() {
@@ -44,6 +27,21 @@ public class MinesweeperGame extends Game {
                 }
                 gameField[y][x] = new GameObject(x, y, isMine);
                 setCellColor(x, y, Color.ORANGE);
+            }
+        }
+        countMineNeighbors();
+    }
+
+    private void countMineNeighbors() {
+        for (int y = 0; y < SIDE; y++) {
+            for (int x = 0; x < SIDE; x++) {
+                if (!gameField[y][x].isMine) {
+                    for (GameObject gameObject : getNeighbors(gameField[y][x])) {
+                        if (gameObject.isMine) {
+                            gameField[y][x].countMineNeighbors++;
+                        }
+                    }
+                }
             }
         }
     }
@@ -66,10 +64,14 @@ public class MinesweeperGame extends Game {
         }
         return result;
     }
+
+    public static void launchA() {
+        MinesweeperGame.launch();
+    }
 }
 
 class Default {
     public static void main(String[] args) {
-        MinesweeperGame.defult();
+        MinesweeperGame.launchA();
     }
 }
