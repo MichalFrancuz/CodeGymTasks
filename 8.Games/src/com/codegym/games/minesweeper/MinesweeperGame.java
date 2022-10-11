@@ -7,6 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MinesweeperGame extends Game {
+
+    private int countFlags;
+
+    private static final String FLAG = "\uD83D\uDEA9";
     private static final String MINE = "\uD83D\uDCA3";
     private static final int SIDE = 9;
     private final GameObject[][] gameField = new GameObject[SIDE][SIDE];
@@ -43,6 +47,7 @@ public class MinesweeperGame extends Game {
             }
         }
         countMineNeighbors();
+        countFlags = countMinesOnField;
     }
 
     private void countMineNeighbors() {
@@ -78,13 +83,13 @@ public class MinesweeperGame extends Game {
         return result;
     }
 
-    public static void launchA() {
-        MinesweeperGame.launch();
-    }
+//    public static void launchA() {
+//        MinesweeperGame.launch();
+//    }
 }
 
-class Default {
-    public static void main(String[] args) {
-        MinesweeperGame.launchA();
-    }
-}
+//class Default {
+//    public static void main(String[] args) {
+//        MinesweeperGame.launchA();
+//    }
+//}
