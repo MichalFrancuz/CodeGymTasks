@@ -7,10 +7,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MinesweeperGame extends Game {
+    private static final String MINE = "\uD83D\uDCA3";
     private static final int SIDE = 9;
     private final GameObject[][] gameField = new GameObject[SIDE][SIDE];
 
     private int countMinesOnField;
+
+    public void onMouseLeftClick(int x, int y) {
+        openTile(x, y);
+    }
+
+    private void openTile(int x, int y) {
+        if (gameField[y][x].isMine) {
+            setCellValue(x, y, MINE);
+        } else setCellNumber(x, y, countMinesOnField);
+        gameField[x][y].isOpen = true;
+        setCellColor(x, y, Color.GREEN);
+    }
 
     @Override
     public void initialize() {
