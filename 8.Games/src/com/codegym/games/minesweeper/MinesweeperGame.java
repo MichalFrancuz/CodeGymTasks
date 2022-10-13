@@ -22,6 +22,14 @@ public class MinesweeperGame extends Game {
     }
 
     private void openTile(int x, int y) {
+        if (!gameField[y][x].isMine) { // to finish
+            gameField[x][y].isOpen = false;
+            for (GameObject gameObject : getNeighbors(gameField[y][x])) {
+                if (!gameObject.isMine) {
+                    getNeighbors(gameObject);
+                }
+            }
+        }
         if (gameField[y][x].isMine) {
             setCellValue(x, y, MINE);
         } else setCellNumber(x, y, countMinesOnField);
@@ -83,13 +91,13 @@ public class MinesweeperGame extends Game {
         return result;
     }
 
-//    public static void launchA() {
-//        MinesweeperGame.launch();
-//    }
+    public static void launchA() {
+        MinesweeperGame.launch();
+    }
 }
 
-//class Default {
-//    public static void main(String[] args) {
-//        MinesweeperGame.launchA();
-//    }
-//}
+class Default {
+    public static void main(String[] args) {
+        MinesweeperGame.launchA();
+    }
+}
